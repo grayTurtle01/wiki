@@ -12,5 +12,10 @@ def wiki(request):
     return render(request, "encyclopedia/wiki.html")
 
 def show_wiki(request, title):
-    return render(request, "encyclopedia/wiki.html", {'title': title})
+    content = util.get_entry(title)
+
+    return render(request, "encyclopedia/wiki.html",
+     {'title': title,
+      'content': util.get_entry(title)  
+     })
 

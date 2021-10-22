@@ -1,5 +1,12 @@
-<h1> Hello from wiki.html</h1>
+{% extends 'encyclopedia/layout.html' %}
 
-<h1>{{ title }}</h1>
+{% block body %}
 
-<a href="/">Home</a>
+  {% if content %}
+    {{ content }}
+  
+  {% else  %}  
+      <h1>Page wiki/{{title}} Not Found 404</h1>
+  {% endif %}
+
+{% endblock %}
