@@ -76,4 +76,11 @@ def update_wiki(request, title):
 
     return redirect(f"/wiki/{title}")
 
-   
+import random
+def random_wiki(request):
+    entries = util.list_entries()
+
+    index = random.randint(0, len(entries)-1 )
+    title = entries[index]
+
+    return redirect(f"/wiki/{title}")
