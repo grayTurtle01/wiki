@@ -5,7 +5,7 @@
 {% block body %}
   <h1>Create Wiki</h1>
 
-  <form action="">
+  <form action="{% url 'save_wiki' %}">
     <input name="title" placeholder="Title">
     <br>
     <textarea name="content"  cols="10" rows="5" >

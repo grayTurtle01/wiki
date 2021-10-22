@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from . import util
@@ -43,3 +43,19 @@ def search_wiki(request):
 
 def create_wiki(request):
     return render(request, "encyclopedia/create_wiki.html")
+
+def save_wiki(request):
+    title = request.GET['title']
+    content = request.GET['content']
+
+    entries = util.list_entries()
+
+    if title in entries:
+        return render(request, "encyclopedia/error.html", 
+            {'message': 'That Wiki Title Already Exists'})
+
+    # save the new page
+    else:    
+        util.save_entry(title, content)
+        # return redirect('index')
+        return redirect(f'/wiki/{title}')
