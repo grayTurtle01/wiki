@@ -23,7 +23,20 @@ def show_wiki(request, title):
 def search_wiki(request):
     title = request.GET['q']
 
-    return render(request, "encyclopedia/wiki.html",
-     {'title': title,
-      'content': util.get_entry(title)  
-     })    
+    entries = util.list_entries()
+
+    if title in entries:
+        return render(request, "encyclopedia/wiki.html",
+        {'title': title,
+        'content': util.get_entry(title)  
+        })    
+
+    else:
+        similars = [] 
+        for entry in entries:
+           if title in entry:
+               similars.append(entry)
+
+        return render(request, "encyclopedia/index.html", {
+            "entries": similars
+        })
