@@ -12,12 +12,17 @@ def index(request):
 def wiki(request):
     return render(request, "encyclopedia/wiki.html")
 
+import markdown2
+from markdown2 import Markdown
 def show_wiki(request, title):
     content = util.get_entry(title)
+    # content = markdown2.markdown(content)
+    markdowner = Markdown()
+    content = markdowner.convert(content)
 
     return render(request, "encyclopedia/wiki.html",
      {'title': title,
-      'content': util.get_entry(title)  
+      'content': content  
      })
 
 def search_wiki(request):

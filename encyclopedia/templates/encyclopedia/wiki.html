@@ -5,7 +5,7 @@
 {% block body %}
 
   {% if content %}
-    {{ content }}
+    {{ content|safe }}
   
   {% else  %}  
       <h1>Page wiki/{{title}} Not Found 404</h1>
