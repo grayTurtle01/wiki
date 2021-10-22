@@ -59,3 +59,21 @@ def save_wiki(request):
         util.save_entry(title, content)
         # return redirect('index')
         return redirect(f'/wiki/{title}')
+
+def edit_wiki(request, title):
+    content = util.get_entry(title)
+
+    return render(request, 'encyclopedia/edit_wiki.html', {
+        'title': title,
+        'content': content
+    })
+
+def update_wiki(request, title):
+    # title = request.GET['title']
+    new_content = request.GET['content']
+
+    util.save_entry(title, new_content)
+
+    return redirect(f"/wiki/{title}")
+
+   

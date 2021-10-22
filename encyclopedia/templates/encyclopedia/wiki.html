@@ -11,4 +11,8 @@
       <h1>Page wiki/{{title}} Not Found 404</h1>
   {% endif %}
 
+ <div>
+   <a href="{% url 'edit_wiki' title %}">Edit</a>
+ </div> 
+
 {% endblock %}
