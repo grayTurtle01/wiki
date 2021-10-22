@@ -13,9 +13,12 @@
             
             <div class="sidebar col-lg-2 col-md-3">
                 <h2>Wiki</h2>
-                <form>
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
+
+                <form action="{% url 'search_wiki' %}">
+                    <input class="search" type="text" autofocus
+                           name="q" placeholder="Search Encyclopedia">
                 </form>
+
                 <div>
                     <a href="{% url 'index' %}">Home</a>
                 </div>
