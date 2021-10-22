@@ -40,3 +40,6 @@ def search_wiki(request):
         return render(request, "encyclopedia/index.html", {
             "entries": similars
         })
+
+def create_wiki(request):
+    return render(request, "encyclopedia/create_wiki.html")
