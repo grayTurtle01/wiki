@@ -31,9 +31,14 @@ def search_wiki(request):
     entries = util.list_entries()
 
     if title in entries:
+        content = util.get_entry(title) 
+        markdowner = Markdown()
+        content = markdowner.convert(content)
+
         return render(request, "encyclopedia/wiki.html",
         {'title': title,
-        'content': util.get_entry(title)  
+        'content': content,
+        'entries': entries 
         })    
 
     else:
@@ -74,7 +79,6 @@ def edit_wiki(request, title):
     })
 
 def update_wiki(request, title):
-    # title = request.GET['title']
     new_content = request.GET['content']
 
     util.save_entry(title, new_content)
