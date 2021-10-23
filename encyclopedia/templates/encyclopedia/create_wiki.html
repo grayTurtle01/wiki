@@ -5,7 +5,9 @@
 {% block body %}
   <h1 class="mb-3">Create New Page</h1>
 
-  <form action="{% url 'save_wiki' %}">
+  <form action="{% url 'create_wiki' %}" method='POST'>
+
+    {% csrf_token %}
 
     <div class="mb-2">
       <input name="title" placeholder="Title" >

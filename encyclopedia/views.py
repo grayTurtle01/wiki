@@ -52,23 +52,28 @@ def search_wiki(request):
         })
 
 def create_wiki(request):
-    return render(request, "encyclopedia/create_wiki.html")
-
-def save_wiki(request):
-    title = request.GET['title']
-    content = request.GET['content']
 
     entries = util.list_entries()
 
-    if title in entries:
-        return render(request, "encyclopedia/error.html", 
-            {'message': 'That Wiki Title Already Exists'})
 
-    # save the new page
-    else:    
-        util.save_entry(title, content)
-        # return redirect('index')
-        return redirect(f'/wiki/{title}')
+    if request.method == 'GET':
+        return render(request, "encyclopedia/create_wiki.html",{
+            'entries': entries
+        })
+
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+
+        if title in entries:
+            return render(request, "encyclopedia/error.html", 
+                {'message': 'That Page Title Already Exists'})
+
+        # save the new page
+        else:    
+            util.save_entry(title, content)
+            return redirect(f'/wiki/{title}')
+
 
 def edit_wiki(request, title):
     content = util.get_entry(title)
@@ -84,6 +89,8 @@ def update_wiki(request, title):
     util.save_entry(title, new_content)
 
     return redirect(f"/wiki/{title}")
+
+
 
 import random
 def random_wiki(request):
