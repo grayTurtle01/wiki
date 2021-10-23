@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django import forms
 
 from . import util
+from markdown2 import Markdown
+import random
+
 
 
 def index(request):
@@ -12,8 +16,7 @@ def index(request):
 def wiki(request):
     return render(request, "encyclopedia/wiki.html")
 
-import markdown2
-from markdown2 import Markdown
+
 def show_wiki(request, title):
     content = util.get_entry(title)
     # content = markdown2.markdown(content)
@@ -22,7 +25,8 @@ def show_wiki(request, title):
 
     return render(request, "encyclopedia/wiki.html",
      {'title': title,
-      'content': content  
+      'content': content,
+      'entries': util.list_entries()  
      })
 
 def search_wiki(request):
@@ -51,6 +55,7 @@ def search_wiki(request):
             "entries": similars
         })
 
+
 def create_wiki(request):
 
     entries = util.list_entries()
@@ -58,7 +63,7 @@ def create_wiki(request):
 
     if request.method == 'GET':
         return render(request, "encyclopedia/create_wiki.html",{
-            'entries': entries
+            'entries': entries,
         })
 
     if request.method == 'POST':
@@ -74,7 +79,6 @@ def create_wiki(request):
             util.save_entry(title, content)
             return redirect(f'/wiki/{title}')
 
-
 def edit_wiki(request, title):
 
     if request.method == 'GET':
@@ -82,7 +86,8 @@ def edit_wiki(request, title):
 
         return render(request, 'encyclopedia/edit_wiki.html', {
             'title': title,
-            'content': content
+            'content': content,
+            'entries': util.list_entries() 
         })
 
     if request.method == 'POST':
@@ -93,8 +98,6 @@ def edit_wiki(request, title):
         return redirect(f"/wiki/{title}")
 
 
-
-import random
 def random_wiki(request):
     entries = util.list_entries()
 
