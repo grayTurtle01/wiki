@@ -8,10 +8,15 @@ import random
 
 
 
+
 def index(request):
+    entries = util.list_entries()
+    print(entries)
+
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
+        "entries": entries
     })
+    
 
 def wiki(request):
     return render(request, "encyclopedia/wiki.html")
@@ -26,7 +31,7 @@ def show_wiki(request, title):
     return render(request, "encyclopedia/wiki.html",
      {'title': title,
       'content': content,
-      'entries': util.list_entries()  
+    #    'entries': util.list_entries()
      })
 
 def search_wiki(request):
@@ -70,6 +75,11 @@ def create_wiki(request):
         title = request.POST['title']
         content = request.POST['content']
 
+        if title == '':
+            return render(request, "encyclopedia/error.html", 
+                {'message': 'The Page Must Have Title'})
+
+
         if title in entries:
             return render(request, "encyclopedia/error.html", 
                 {'message': 'That Page Title Already Exists'})
@@ -87,7 +97,7 @@ def edit_wiki(request, title):
         return render(request, 'encyclopedia/edit_wiki.html', {
             'title': title,
             'content': content,
-            'entries': util.list_entries() 
+             "entries": util.list_entries()
         })
 
     if request.method == 'POST':

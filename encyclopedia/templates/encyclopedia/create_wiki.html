@@ -8,16 +8,13 @@
   <form action="{% url 'create_wiki' %}" method='POST'>
 
     {% csrf_token %}
-
-    {{ form }}
-
+    
     <div class="mb-2">
-      <input name="title" placeholder="Title" >
+      <input name="title" placeholder="Title" required>
     </div>
 
     <div class="mb-2">
-      <textarea name="content" >
-      </textarea>
+      <textarea name="content" ></textarea>
     </div>
     
 
