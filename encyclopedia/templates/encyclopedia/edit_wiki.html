@@ -5,7 +5,9 @@
 {% block body %}
   <h1 class="mb-3">Editing {{ title }} </h1>
 
-  <form action="{% url 'update_wiki' title %}">
+  <form action="{% url 'edit_wiki' title %}" method='POST'>
+
+    {% csrf_token %}
 
     <div class="mb-2">
       <input name="title" placeholder="Title" value="{{ title }}" disabled>

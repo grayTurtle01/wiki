@@ -76,19 +76,21 @@ def create_wiki(request):
 
 
 def edit_wiki(request, title):
-    content = util.get_entry(title)
 
-    return render(request, 'encyclopedia/edit_wiki.html', {
-        'title': title,
-        'content': content
-    })
+    if request.method == 'GET':
+        content = util.get_entry(title)
 
-def update_wiki(request, title):
-    new_content = request.GET['content']
+        return render(request, 'encyclopedia/edit_wiki.html', {
+            'title': title,
+            'content': content
+        })
 
-    util.save_entry(title, new_content)
+    if request.method == 'POST':
+        new_content = request.POST['content']
 
-    return redirect(f"/wiki/{title}")
+        util.save_entry(title, new_content)
+
+        return redirect(f"/wiki/{title}")
 
 
 
