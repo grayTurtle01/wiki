@@ -1,17 +1,27 @@
 {% extends 'encyclopedia/layout.html' %}
 
-{% block title %} {{title}} {% endblock %}
+{% block title %} Editing {{title}} {% endblock %}
 
 {% block body %}
-  <h1>Edit {{ title }} </h1>
+  <h1>Editing {{ title }} </h1>
 
   <form action="{% url 'update_wiki' title %}">
-    <input name="title" placeholder="Title" value="{{ title }}" disabled>
-    <br>
-    <textarea name="content"  cols="10" rows="5" value="{{ content }}" >{{content}}
-    </textarea>
-    <br>
-    <button class="btn btn-primary">Save Changes</button>
+
+    <div class="mb-2">
+      <input name="title" placeholder="Title" value="{{ title }}" disabled>
+    </div>
+
+    <div class="mb-2">
+      <textarea name="content"  cols="10" rows="5" value="{{ content }}" >{{content}}
+      </textarea>
+    </div>
+    
+    <div style="width:60%; text-align: right;">
+      <button class="btn btn-primary">
+        Save Changes
+      </button>
+    </div>
+
   </form>
 
 
