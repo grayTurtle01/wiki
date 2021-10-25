@@ -10,8 +10,13 @@ int main(){
 
 **Types**
 
+- char
+- int
+- float
+- double
 
 
+      
       
       
       
