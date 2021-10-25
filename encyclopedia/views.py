@@ -8,7 +8,6 @@ import random
 
 
 
-
 def index(request):
     entries = util.list_entries()
     print(entries)
@@ -27,14 +26,14 @@ def show_wiki(request, title):
 
     if title in entries:
         content = util.get_entry(title)
-        # content = markdown2.markdown(content)
+
         markdowner = Markdown()
         content = markdowner.convert(content)
 
         return render(request, "encyclopedia/wiki.html",
         {'title': title,
         'content': content,
-        #    'entries': util.list_entries()
+        'entries': util.list_entries()
         })
     else:
         return render(request, 'encyclopedia/error.html', {
@@ -89,7 +88,7 @@ def create_wiki(request):
 
         if title in entries:
             return render(request, "encyclopedia/error.html", 
-                {'message': 'That Page Title Already Exists'})
+                {'message': f'That Page: {title} Already Exists'})
 
         # save the new page
         else:    
