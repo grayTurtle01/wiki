@@ -23,16 +23,23 @@ def wiki(request):
 
 
 def show_wiki(request, title):
-    content = util.get_entry(title)
-    # content = markdown2.markdown(content)
-    markdowner = Markdown()
-    content = markdowner.convert(content)
+    entries = util.list_entries()
 
-    return render(request, "encyclopedia/wiki.html",
-     {'title': title,
-      'content': content,
-    #    'entries': util.list_entries()
-     })
+    if title in entries:
+        content = util.get_entry(title)
+        # content = markdown2.markdown(content)
+        markdowner = Markdown()
+        content = markdowner.convert(content)
+
+        return render(request, "encyclopedia/wiki.html",
+        {'title': title,
+        'content': content,
+        #    'entries': util.list_entries()
+        })
+    else:
+        return render(request, 'encyclopedia/error.html', {
+            'message': f'Page: wiki/{title} doesn\'t Exist' 
+            })
 
 def search_wiki(request):
     title = request.GET['q']
